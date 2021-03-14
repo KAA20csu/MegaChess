@@ -1,1 +1,1 @@
-MegaChess
+MegaChess_Game

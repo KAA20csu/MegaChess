@@ -35,6 +35,14 @@ namespace MegaChess.Desktop
         {
             Game game = new Game();
             game.Show();
+            this.Close();
+            
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.Show();
         }
     }
     

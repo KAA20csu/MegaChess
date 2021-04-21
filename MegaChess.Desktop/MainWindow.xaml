@@ -29,12 +29,14 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text="Welcome To The Chess Game!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="44" Foreground="#FF6700D1" TextWrapping="Wrap" FontWeight="ExtraBold"/>
         <TextBlock Text="Welcome To The Chess Game!" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="44" Foreground="WhiteSmoke" TextWrapping="Wrap" FontWeight="ExtraBold" Margin="0,39,0,0"/>
         <Button Click="btn_NewGame" FontSize="44" Content="New Game" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" Foreground="#FFFCFCFC" BorderBrush="White"/>
         <Button  FontSize="44" Content="Continue" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="89" Width="393" Background="{x:Null}" Foreground="#FFFDFBFB" BorderBrush="#FFFDFAFA"/>
-        <Button Click="btn_Exit" FontSize="44" Content="Exit" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" BorderBrush="#FFF7F5F5" Foreground="#FFFCFCFC"/>
+        <Button  FontSize="44" Content="Settings" Click="Settings_Click" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="89" Width="393" Background="{x:Null}" Foreground="#FFFDFBFB" BorderBrush="#FFFDFAFA"/>
+        <Button Click="btn_Exit" FontSize="44" Content="Exit" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" BorderBrush="#FFF7F5F5" Foreground="#FFFCFCFC"/>
 
     </Grid>
 </Window>

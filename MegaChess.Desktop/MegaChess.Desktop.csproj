@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MegaChess.Console\MegaChess.Console.csproj" />
+    
     <ProjectReference Include="..\MegaChess.Logic\MegaChess.Logic.csproj" />
   </ItemGroup>
 

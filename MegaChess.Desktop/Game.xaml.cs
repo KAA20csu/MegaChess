@@ -1,7 +1,10 @@
 ﻿using MegaChess.Logic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -15,103 +18,24 @@ namespace MegaChess.Desktop
         public Game()
         {
             Placement.Initialisation();
+            new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
+            
             InitializeComponent();
         }
-
-        private bool isSelected;
-
-        private bool isFilled;
-
-
-        private void field_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
         {
-            if (!(sender is Canvas canvas))
-                throw new ArgumentException("Обработчик должен вызываться для Canvas", nameof(sender));
+            field.Children.Clear();
 
-            canvas.Children.Clear();
-
-            var cellSize = Math.Min(e.NewSize.Width, e.NewSize.Height) / 8;
-
-
-            for (int i = 0; i < 8; i++)
+            for(int i = 0; i < 8; i ++)
             {
-                for (int j = 0; j < 8; j++)
+                for(int j = 0; j < 8; j++)
                 {
+                    field.Children.Add(IDrawer.Board[i, j].Square); // Дoбавляем на Canvas элементы массива с клетками (уже закрашенными и с установленным размером для каждой).
 
-                    isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0;
-
-
-                    var cell = new Rectangle();
-
-                    cell.Height = cellSize;
-                    cell.Width = cellSize;
-                    cell.Fill = isSelected
-                    ? Brushes.Red
-                    : isFilled ? Brushes.RosyBrown : Brushes.White;
-
-                    cell.Stroke = Brushes.Black;
-                    cell.StrokeThickness = 1;
-
-                    canvas.Children.Add(cell);
-
-                    Canvas.SetTop(cell, (i) * cellSize);
-                    Canvas.SetLeft(cell, (j) * cellSize);
-
-                    var text = new TextBox
-                    {
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        Background = null,
-                        BorderBrush = null,
-                        IsEnabled = false,
-                        Width = cellSize,
-                        Height = cellSize,
-                        FontSize = 30,
-                        IsHitTestVisible = false
-                    };
-
-                    if (string.IsNullOrWhiteSpace(Placement.field[i, j]))
-                    {
-                        text.Text = "";
-                    }
-                    else
-                    {
-                        text.Text = Placement.field[i, j];
-                    }
-
-
-                    canvas.Children.Add(text);
-
-                    cell.MouseLeftButtonUp += Clicked;
-
-                    Canvas.SetTop(text, (i) * cellSize);
-                    Canvas.SetLeft(text, (j) * cellSize);
-
-
+                    Canvas.SetTop(IDrawer.Board[i, j].Square, 75 * i); // Устанавливаем позицию на Canvas.
+                    Canvas.SetLeft(IDrawer.Board[i, j].Square, 75 * j);
                 }
             }
-        }
-
-        private Rectangle selectedRectangle;
-        private Brush originalBrushSelectedRectangle;
-        public void Clicked(object sender, MouseButtonEventArgs e)
-        {
-
-            isSelected = !isSelected;
-
-            if (!(sender is Rectangle rectangle))
-                throw new ArgumentException("Обработчик должен вызываться для Rectangle", nameof(sender));
-
-            if (selectedRectangle != null)
-                selectedRectangle.Fill = originalBrushSelectedRectangle;
-
-            selectedRectangle = rectangle;
-            originalBrushSelectedRectangle = selectedRectangle.Fill;
-
-            rectangle.Fill = Brushes.LightGreen;
-            
         }
     }
 }

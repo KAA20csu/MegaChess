@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MegaChess.Desktop"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800">
+        Title="Settings" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFEDE13D" Offset="0.944"/>
@@ -25,7 +25,8 @@
         </Grid.RowDefinitions>
         <Label Content="Choose first BoardColor:" Grid.Row="0" VerticalAlignment="Center" FontSize="50" FontFamily="Chiller" Foreground="#FFFAF7F7"/>
         <Label Content="Choose second BoardColor:" Grid.Row="1" VerticalAlignment="Center" FontSize="50" FontFamily="Chiller" Foreground="#FFFAF7F7"/>
-        <ComboBox HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="340" Height="36"/>
-        <ComboBox HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="340" Height="36" Grid.Row="1"/>
+        <ComboBox Name="firstColor" SelectionChanged="firstColor_SelectionChanged" HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="340" Height="36" />
+        <ComboBox Name="secondColor" SelectionChanged="secondColor_SelectionChanged" HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="340" Height="36" Grid.Row="1"/>
+        <Button Click="Save_Click" Content="Save And Continue" FontSize="32" Background="{x:Null}" Foreground="#FFFCFCFC" BorderBrush="White" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Height="41" Width="400" FontFamily="Algerian"/>
     </Grid>
 </Window>

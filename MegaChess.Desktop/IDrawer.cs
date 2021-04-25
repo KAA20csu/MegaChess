@@ -7,6 +7,8 @@ using MegaChess.Logic;
 using MegaChess.Desktop;
 using System.Windows;
 using System.Windows.Input;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace MegaChess.Desktop
 {
@@ -14,7 +16,8 @@ namespace MegaChess.Desktop
     {
         public static Cell[,] Board { get; private set; } = new Cell[8, 8]; // Массив из клеток, размера 8 на 8, как само поле
         public static bool isClicked { get; set; } = false; // Параметр для выделения ОБЩИЙ (маркер на самом поле, а не для отдельной клетки)
-
+        public static int CountPlayerOne { get; set; } = 16;
+        public static int CountPlayerTwo { get; set; } = 16;
         public static bool WhiteOrBlack { get; set; } = true;
         
         public static int Row;
@@ -36,29 +39,36 @@ namespace MegaChess.Desktop
         }
     }
     public enum FigureColor { White, Black }
+    
     public class Cell // Создаём клетку (ячейку) доски
     {
-        
         private bool isFilled { get; set; } // Параметр окрашивания
         private bool IsClicked { get; set; } = false; // Параметр выделения
         private FigureParams Figure { get; set; }
         public Label Square { get; private set; } // Контрол для самой клетки
         private int X;
         private int Y;
+        private static string[] Colors = File.ReadAllLines("ColorProps.txt");
+
+        SolidColorBrush FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
+        SolidColorBrush SecondBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[1]);
         
         public Cell(int i, int j)
         {
+            
             X = i;
             Y = j;
             isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0; // Формула покраски клеток
             Square = new Label(); // Инициализируем клетку, задаём размер, красим
             Square.Width = 75;
             Square.Height = 75;
-            Square.Background = isFilled ? Brushes.SaddleBrown : Brushes.Bisque;
+            Square.Background = isFilled ? FirstBoardColor : SecondBoardColor;
             if (Placement.field[i, j] != null) 
             {
                 Square.Content = Placement.field[i, j].Name.ToString();
                 Figure = Placement.field[i, j];
+                if (Figure.Color == Logic.FigureColor.White) new FirstPlayer(Logic.FigureColor.White, 16, 0);
+                else if(Figure.Color == Logic.FigureColor.Black) new SecondPlayer(Logic.FigureColor.Black, 16, 0);
             }
             Square.FontSize = 30;
             
@@ -122,8 +132,39 @@ namespace MegaChess.Desktop
                     Ys.Clear();
 
                     IDrawer.WhiteOrBlack = switcher;
+                }
+                else if (Square.Content != null && IsClicked == false)
+                {
+                    IDrawer.isClicked = false;
 
+                    Xs.Add(Y);
+                    Ys.Add(X);
+                    CheckDifference(Xs, Ys);
+                    CheckMove(DifX, DifY, figureName);
 
+                    Xs.Clear();
+                    Ys.Clear();
+                    IDrawer.WhiteOrBlack = switcher;
+                    if (Figure.Color == Logic.FigureColor.White) FirstPlayer.Count--;
+                    else if (Figure.Color == Logic.FigureColor.Black) SecondPlayer.Count--;
+                    CheckWin();
+                }
+                
+            }
+        }
+        private void CheckWin()
+        {
+            if (FirstPlayer.Count == 0 || SecondPlayer.Count == 0)
+            {
+                if (FirstPlayer.Count > SecondPlayer.Count)
+                {
+                    string winner = FirstPlayer.Name;
+                    MessageBox.Show($"Игра окончена, победил {winner}");
+                }
+                else 
+                {
+                    string winner = SecondPlayer.Name;
+                    MessageBox.Show($"Игра окончена, победил {winner}");
                 }
             }
         }
@@ -139,9 +180,18 @@ namespace MegaChess.Desktop
         {
             Square.Content = IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content = null;
+
+            Figure = IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure;
+            IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure = null;
+
+            Placement.field[X, Y] = Placement.field[IDrawer.Row, IDrawer.Column];
+            Placement.field[IDrawer.Row, IDrawer.Column] = null;
+
             IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Background
-                = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? Brushes.SaddleBrown : Brushes.Bisque;
+                = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? FirstBoardColor : SecondBoardColor;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].IsClicked = false;
+
+            
         }
 
         private void CheckMove(int DifX, int DifY, string figureName)

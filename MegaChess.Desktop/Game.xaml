@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MegaChess.Desktop"
         mc:Ignorable="d"
-        Title="Game" Height="650" Width="650" BorderBrush="Black">
+        Title="Game" Height="650" Width="670" BorderBrush="Black" Closing="Window_Closing">
     <Grid>
         <Border BorderBrush="Black"
             BorderThickness="1"

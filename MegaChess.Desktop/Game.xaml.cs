@@ -1,7 +1,10 @@
 ﻿using MegaChess.Logic;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,13 +20,17 @@ namespace MegaChess.Desktop
 
         public Game()
         {
-            Placement.Initialisation();
             new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
             
             InitializeComponent();
         }
+        
         private void field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
         {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "fon-sound.wav";
+            sp.Load();
+            sp.PlayLooping();
             field.Children.Clear();
 
             for(int i = 0; i < 8; i ++)
@@ -37,5 +44,23 @@ namespace MegaChess.Desktop
                 }
             }
         }
+
+        
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //string jh = "";
+            //foreach (var i in Placement.field)
+            //{
+            //    if (i != null)
+            //        jh += i.Name.ToString() + ';' + i.Color.ToString() + '\n';
+            //    else if (i == null)
+            //        jh += "-" + '\n';
+            //}
+
+            //File.WriteAllText("save.txt", jh);
+
+            var sd = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
+            File.WriteAllText("save1.txt", sd);
+        }    
     }
 }

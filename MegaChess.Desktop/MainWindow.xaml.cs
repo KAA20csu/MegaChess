@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using MegaChess.Logic;
+using System.IO;
 
 
 namespace MegaChess.Desktop
@@ -33,6 +36,8 @@ namespace MegaChess.Desktop
         }
         private void btn_NewGame(object sender, RoutedEventArgs e)
         {
+
+            Placement.Initialisation();
             Game game = new Game();
             game.Show();
             this.Close();
@@ -43,6 +48,16 @@ namespace MegaChess.Desktop
         {
             Settings settings = new Settings();
             settings.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var yyy = File.ReadAllText("save1.txt");
+            var ds = JsonConvert.DeserializeObject<FigureParams[,]>(yyy);
+            Placement.field = ds;
+            Game game = new Game();
+            game.Show();
+            this.Close();
         }
     }
     

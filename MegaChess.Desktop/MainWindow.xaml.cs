@@ -59,6 +59,12 @@ namespace MegaChess.Desktop
             game.Show();
             this.Close();
         }
+
+        private void Rating_Click(object sender, RoutedEventArgs e)
+        {
+            Rating rating = new Rating();
+            rating.Show();
+        }
     }
     
 }

@@ -23,6 +23,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Label Content="Choose first BoardColor:" Grid.Row="0" VerticalAlignment="Center" FontSize="50" FontFamily="Chiller" Foreground="#FFFAF7F7"/>
         <Label Content="Choose second BoardColor:" Grid.Row="1" VerticalAlignment="Center" FontSize="50" FontFamily="Chiller" Foreground="#FFFAF7F7"/>
         <ComboBox Name="firstColor" SelectionChanged="firstColor_SelectionChanged" HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="340" Height="36" />

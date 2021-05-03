@@ -48,19 +48,11 @@ namespace MegaChess.Desktop
         
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //string jh = "";
-            //foreach (var i in Placement.field)
-            //{
-            //    if (i != null)
-            //        jh += i.Name.ToString() + ';' + i.Color.ToString() + '\n';
-            //    else if (i == null)
-            //        jh += "-" + '\n';
-            //}
-
-            //File.WriteAllText("save.txt", jh);
-
-            var sd = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
-            File.WriteAllText("save1.txt", sd);
+            var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
+            File.WriteAllText("save1.txt", save);
+            
+            MainWindow main = new MainWindow();
+            main.Show();
         }    
     }
 }

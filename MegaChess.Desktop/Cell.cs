@@ -52,8 +52,6 @@ namespace MegaChess.Desktop
             
             OriginalBrush = Square.Background;
         }
-        private string saveRate { get; set; } = "0";
-        private string saveRateSecond { get; set; } = "0";
         
         private void CheckWin()
         {
@@ -62,18 +60,18 @@ namespace MegaChess.Desktop
                 if (FirstPlayer.Count > SecondPlayer.Count)
                 {
                     string winner = FirstPlayer.Name;
-                    var count = FirstPlayer.Wins + 1;
-                    saveRate = count.ToString();
+                    FirstPlayer.Wins++;
+                    IDrawer.saveRate = FirstPlayer.Wins.ToString();
                     MessageBox.Show($"Игра окончена, победил {winner}");
                 }
                 else
                 {
                     string winner = SecondPlayer.Name;
                     SecondPlayer.Wins++;
-                    saveRateSecond = SecondPlayer.Wins.ToString();
+                    IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
                     MessageBox.Show($"Игра окончена, победил {winner}");
                 }
-                File.WriteAllText("Rate.txt", saveRate + "\n" + saveRateSecond);
+                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
             }
             
         }
@@ -81,7 +79,7 @@ namespace MegaChess.Desktop
         public static string figureName = "";
         public void Moves()
         {
-            //IDrawer drawer = new IDrawer();
+            
             Square.Content = IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content = null;
 
@@ -152,21 +150,49 @@ namespace MegaChess.Desktop
                 else if (Square.Content != null && IsClicked == false)
                 {
                     IDrawer.isClicked = false;
-
+                    string attackedFigure = Square.Content.ToString();
                     MovementLogic.Xs.Add(Y);
                     MovementLogic.Ys.Add(X);
                     if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, figureName))
                     {
                         Moves();
                     }
-
                     MovementLogic.Xs.Clear();
                     MovementLogic.Ys.Clear();
                     IDrawer.WhiteOrBlack = switcher;
-                    if (Figure.Color == Logic.FigureColor.White) FirstPlayer.Count--;
-                    else if (Figure.Color == Logic.FigureColor.Black) SecondPlayer.Count--;
+                    if (Figure.Color == Logic.FigureColor.White)
+                    {
+                        if (attackedFigure != "K")
+                        {
+                            FirstPlayer.Count--;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Игра окончена, победил Second Player!");
+                            SecondPlayer.Wins++;
+                            IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
+                            File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+
+                        }
+
+                    }
+                    else if (Figure.Color == Logic.FigureColor.Black)
+                    {
+                        if (attackedFigure != "K")
+                        {
+                            SecondPlayer.Count--;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Игра окончена, победил First Player!");
+                            FirstPlayer.Wins++;
+                            IDrawer.saveRate = FirstPlayer.Wins.ToString();
+                            File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+                        } 
+                    }
                     CheckWin();
                 }
+                
             }
         }
     }

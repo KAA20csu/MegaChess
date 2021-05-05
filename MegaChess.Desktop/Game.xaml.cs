@@ -31,6 +31,7 @@ namespace MegaChess.Desktop
             //sp.SoundLocation = "fon-sound.wav";
             //sp.Load();
             //sp.PlayLooping();
+
             field.Children.Clear();
 
             for(int i = 0; i < 8; i ++)

@@ -21,9 +21,10 @@ namespace MegaChess.Logic
     }
     public class Placement
     {
-        public static FigureParams[,] field = new FigureParams[8, 8];
+        public static FigureParams[,] field { get; set; }
         public static void Initialisation()
         {
+            field = new FigureParams[8, 8];
             field[7, 3] = new FigureParams(Names.K, FigureColor.Black);
             field[7, 4] = new FigureParams(Names.Q, FigureColor.Black);
             field[7, 0] = new FigureParams(Names.C, FigureColor.Black);

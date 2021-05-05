@@ -22,6 +22,7 @@ namespace MegaChess.Desktop
         public Rating()
         {
             InitializeComponent();
+
             string[] WinRate = File.ReadAllLines("Rate.txt");
             FirstWins.Content = WinRate[0];
             SecondWins.Content = WinRate[1];

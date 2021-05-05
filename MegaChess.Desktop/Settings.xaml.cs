@@ -13,12 +13,8 @@ using System.Windows.Shapes;
 
 namespace MegaChess.Desktop
 {
-    /// <summary>
-    /// Логика взаимодействия для Settings.xaml
-    /// </summary>
-    /// 
-    public enum ColorsFirst { Yellow, Green, Blue }
-    public enum ColorsSecond { White, Orange, Grey}
+    public enum ColorsFirst { Aqua, Aquamarine, Blue, BlueViolet, Chartreuse, ConflowerBlue, DarkSlateBlue, DarkSeaGreen, Indigo, MediumPurple, Orchid, RoyalBlue, MediumVioletRed, Lime, SteelBlue }
+    public enum ColorsSecond { AliceBlue, AntiqueWhite, Azure, Beige, Bisque, BlanchedAlmond, DarkGray, BurlyWood, Cornsilk, GhostWhite, Lavender, MintCream, Linen, WhiteSmoke}
     public partial class Settings : Window
     {
         public Settings()

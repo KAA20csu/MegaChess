@@ -57,8 +57,8 @@ namespace MegaChess.Desktop
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
             var save = File.ReadAllText("save1.txt");
-            var ds = JsonConvert.DeserializeObject<FigureParams[,]>(save);
-            Placement.field = ds;
+            var jsonSaver = JsonConvert.DeserializeObject<FigureParams[,]>(save);
+            Placement.field = jsonSaver;
             
             Game game = new Game();
             game.Show();

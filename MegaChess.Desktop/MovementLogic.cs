@@ -81,7 +81,7 @@ namespace MegaChess.Desktop
             }
             return false;
         }
-        public static bool MovePawn(int DifX, int DifYj)
+        public static bool MovePawn(int DifX, int DifY)
         {
             if (Ys[0] == 6 && Ys[0] < 7)
             {
@@ -94,8 +94,6 @@ namespace MegaChess.Desktop
                 {
                     return true;
                 }
-
-
             }
             else if (Ys[0] < 6)
             {

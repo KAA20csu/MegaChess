@@ -19,6 +19,7 @@ namespace MegaChess.Desktop
         private bool IsClicked { get; set; } = false; // Параметр выделения
         private FigureParams Figure { get; set; }
         public Label Square { get; private set; } // Контрол для самой клетки
+
         private int X;
         private int Y;
         
@@ -44,15 +45,14 @@ namespace MegaChess.Desktop
                 if (Figure.Color == Logic.FigureColor.White) new FirstPlayer(Logic.FigureColor.White, 16, 0);
                 else if (Figure.Color == Logic.FigureColor.Black) new SecondPlayer(Logic.FigureColor.Black, 16, 0);
             }
+
             Square.FontSize = 30;
 
-            Square.MouseLeftButtonUp += field_MouseLeftButtonUp;
+            Square.MouseLeftButtonUp += ClickOnFigure;
             
             OriginalBrush = Square.Background;
         }
         
-        
-        MovementLogic Logicc = new MovementLogic();
         public static string FigureName = "";
         public void Moves()
         {
@@ -70,7 +70,7 @@ namespace MegaChess.Desktop
                 = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? FirstBoardColor : SecondBoardColor;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].IsClicked = false;
         }
-        public void field_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        public void ClickOnFigure(object sender, MouseButtonEventArgs e)
         {
             if (IDrawer.WhiteOrBlack == true)
             {
@@ -107,7 +107,6 @@ namespace MegaChess.Desktop
                     IsClicked = false;
                     MovementLogic.Xs.Clear();
                     MovementLogic.Ys.Clear();
-
                 }
                 else if (Square.Content == null && IsClicked == false) // Если фигуры нет, и нет выделения
                 {
@@ -169,7 +168,6 @@ namespace MegaChess.Desktop
                     }
                     Game.CheckWin();
                 }
-                
             }
         }
     }

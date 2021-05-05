@@ -21,8 +21,7 @@ namespace MegaChess.Desktop
         public Label Square { get; private set; } // Контрол для самой клетки
         private int X;
         private int Y;
-        public static int _X;
-        public static int _Y;
+        
         private static string[] Colors = File.ReadAllLines("ColorProps.txt");
 
         public static SolidColorBrush FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
@@ -32,10 +31,9 @@ namespace MegaChess.Desktop
         {
             X = i;
             Y = j;
-            _X = X;
-            _Y = Y;
-            isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0; // Формула покраски клеток
-            Square = new Label(); // Инициализируем клетку, задаём размер, красим
+            
+            isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0; 
+            Square = new Label(); 
             Square.Width = 75;
             Square.Height = 75;
             Square.Background = isFilled ? FirstBoardColor : SecondBoardColor;
@@ -53,30 +51,9 @@ namespace MegaChess.Desktop
             OriginalBrush = Square.Background;
         }
         
-        private void CheckWin()
-        {
-            if (FirstPlayer.Count == 15 || SecondPlayer.Count == 15)
-            {
-                if (FirstPlayer.Count > SecondPlayer.Count)
-                {
-                    string winner = FirstPlayer.Name;
-                    FirstPlayer.Wins++;
-                    IDrawer.saveRate = FirstPlayer.Wins.ToString();
-                    MessageBox.Show($"Игра окончена, победил {winner}");
-                }
-                else
-                {
-                    string winner = SecondPlayer.Name;
-                    SecondPlayer.Wins++;
-                    IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
-                    MessageBox.Show($"Игра окончена, победил {winner}");
-                }
-                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
-            }
-            
-        }
+        
         MovementLogic Logicc = new MovementLogic();
-        public static string figureName = "";
+        public static string FigureName = "";
         public void Moves()
         {
             
@@ -118,7 +95,7 @@ namespace MegaChess.Desktop
                     IDrawer.Column = Y;
                     MovementLogic.Xs.Add(Y);
                     MovementLogic.Ys.Add(X);
-                    figureName = Square.Content.ToString();
+                    FigureName = Square.Content.ToString();
                 }
             }
             else if (IDrawer.isClicked) // Если на поле выделена клетка, выполняем эту ветку
@@ -138,7 +115,7 @@ namespace MegaChess.Desktop
 
                     MovementLogic.Xs.Add(Y);
                     MovementLogic.Ys.Add(X);
-                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, figureName))
+                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
                     {
                         Moves();
                     }
@@ -153,7 +130,7 @@ namespace MegaChess.Desktop
                     string attackedFigure = Square.Content.ToString();
                     MovementLogic.Xs.Add(Y);
                     MovementLogic.Ys.Add(X);
-                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, figureName))
+                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
                     {
                         Moves();
                     }
@@ -190,7 +167,7 @@ namespace MegaChess.Desktop
                             File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
                         } 
                     }
-                    CheckWin();
+                    Game.CheckWin();
                 }
                 
             }

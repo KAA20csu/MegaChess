@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MegaChess.Logic;
 
 namespace MegaChess.Logic
 {
@@ -30,4 +31,5 @@ namespace MegaChess.Logic
             Wins = wins;
         }
     }
+
 }

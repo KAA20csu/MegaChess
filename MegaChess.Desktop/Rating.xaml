@@ -9,10 +9,24 @@
         Title="Rating" Height="450" Width="800">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFEDE13D" Offset="0.944"/>
-            <GradientStop Color="#FFF41D1D" Offset="0"/>
+            <GradientStop Color="#FF121102" Offset="0.944"/>
+            <GradientStop Color="#FFB69B4B" Offset="0"/>
+            <GradientStop Color="#FF857235" Offset="0.278"/>
+            <GradientStop Color="#FF645626" Offset="0.469"/>
+            <GradientStop Color="#FF564A20" Offset="0.545"/>
+            <GradientStop Color="#FE463D19" Offset="0.635"/>
+            <GradientStop Color="#FE3A3313" Offset="0.705"/>
+            <GradientStop Color="#FE2C270D" Offset="0.788"/>
+            <GradientStop Color="#FF74642D" Offset="0.372"/>
+            <GradientStop Color="#FF97813D" Offset="0.174"/>
         </LinearGradientBrush>
     </Window.Background>
+    <Window.BorderBrush>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FFE27575" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.BorderBrush>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

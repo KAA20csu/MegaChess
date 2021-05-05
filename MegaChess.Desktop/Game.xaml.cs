@@ -27,10 +27,10 @@ namespace MegaChess.Desktop
         
         private void field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
         {
-            //SoundPlayer sp = new SoundPlayer();
-            //sp.SoundLocation = "fon-sound.wav";
-            //sp.Load();
-            //sp.PlayLooping();
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "fon-sound.wav";
+            sp.Load();
+            sp.PlayLooping();
 
             field.Children.Clear();
 
@@ -51,9 +51,32 @@ namespace MegaChess.Desktop
         {
             var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
             File.WriteAllText("save1.txt", save);
-            
+            IDrawer.WhiteOrBlack = true;
             MainWindow main = new MainWindow();
             main.Show();
-        }    
+        }
+
+        public static void CheckWin()
+        {
+            if (FirstPlayer.Count == 0 || SecondPlayer.Count == 0)
+            {
+                if (FirstPlayer.Count > SecondPlayer.Count)
+                {
+                    string winner = FirstPlayer.Name;
+                    FirstPlayer.Wins++;
+                    IDrawer.saveRate = FirstPlayer.Wins.ToString();
+                    MessageBox.Show($"Игра окончена, победил {winner}");
+                }
+                else
+                {
+                    string winner = SecondPlayer.Name;
+                    SecondPlayer.Wins++;
+                    IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
+                    MessageBox.Show($"Игра окончена, победил {winner}");
+                }
+                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+            }
+
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace MegaChess.Logic
         public static string Name { get; private set; } = "First Player";
         public FigureColor Figure { get; }
         public static int Count { get; set; }
-        public static int Wins { get; set; }
+        public static int Wins { get; set; } 
         public FirstPlayer(FigureColor figure, int count, int wins)
         {
             Figure = figure;
@@ -22,7 +22,7 @@ namespace MegaChess.Logic
         public static string Name { get; private set; } = "Second Player";
         public FigureColor Figure { get; }
         public static int Count { get; set; }
-        public static int Wins { get; set; }
+        public static int Wins { get; set; } 
         public SecondPlayer(FigureColor figure, int count, int wins)
         {
             Figure = figure;

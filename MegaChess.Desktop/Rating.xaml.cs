@@ -26,10 +26,5 @@ namespace MegaChess.Desktop
             FirstWins.Content = WinRate[0];
             SecondWins.Content = WinRate[1];
         }
-
-        private void GetWins()
-        {
-            
-        }
     }
 }

@@ -27,10 +27,10 @@ namespace MegaChess.Desktop
         
         private void field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
         {
-            SoundPlayer sp = new SoundPlayer();
-            sp.SoundLocation = "fon-sound.wav";
-            sp.Load();
-            sp.PlayLooping();
+            //SoundPlayer sp = new SoundPlayer();
+            //sp.SoundLocation = "fon-sound.wav";
+            //sp.Load();
+            //sp.PlayLooping();
             field.Children.Clear();
 
             for(int i = 0; i < 8; i ++)

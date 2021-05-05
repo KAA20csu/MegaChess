@@ -52,18 +52,18 @@ namespace MegaChess.Desktop
             
             OriginalBrush = Square.Background;
         }
-        private string saveRate { get; set; }
-        private string saveRateSecond { get; set; }
+        private string saveRate { get; set; } = "0";
+        private string saveRateSecond { get; set; } = "0";
         
         private void CheckWin()
         {
-            if (FirstPlayer.Count == 0 || SecondPlayer.Count == 0)
+            if (FirstPlayer.Count == 15 || SecondPlayer.Count == 15)
             {
                 if (FirstPlayer.Count > SecondPlayer.Count)
                 {
                     string winner = FirstPlayer.Name;
-                    FirstPlayer.Wins++;
-                    saveRate = FirstPlayer.Wins.ToString();
+                    var count = FirstPlayer.Wins + 1;
+                    saveRate = count.ToString();
                     MessageBox.Show($"Игра окончена, победил {winner}");
                 }
                 else
@@ -75,6 +75,7 @@ namespace MegaChess.Desktop
                 }
                 File.WriteAllText("Rate.txt", saveRate + "\n" + saveRateSecond);
             }
+            
         }
         MovementLogic Logicc = new MovementLogic();
         public static string figureName = "";

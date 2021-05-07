@@ -117,11 +117,10 @@ namespace MegaChess.Desktop
                     if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
                     {
                         Moves();
+                        IDrawer.WhiteOrBlack = switcher;
                     }
                     MovementLogic.Xs.Clear();
                     MovementLogic.Ys.Clear();
-
-                    IDrawer.WhiteOrBlack = switcher;
                 }
                 else if (Square.Content != null && IsClicked == false)
                 {

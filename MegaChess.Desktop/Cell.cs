@@ -48,7 +48,7 @@ namespace MegaChess.Desktop
 
             Square.FontSize = 30;
 
-            Square.MouseLeftButtonUp += ClickOnFigure;
+            Square.MouseLeftButtonUp += PlayOnWho;
             
             OriginalBrush = Square.Background;
         }
@@ -70,103 +70,126 @@ namespace MegaChess.Desktop
                 = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? FirstBoardColor : SecondBoardColor;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].IsClicked = false;
         }
-        public void ClickOnFigure(object sender, MouseButtonEventArgs e)
+        public void PlayOnWho(object sender, MouseButtonEventArgs e)
         {
             if (IDrawer.WhiteOrBlack == true)
             {
-                PlayWithWho(Logic.FigureColor.White, false);
+                FigureClick(Logic.FigureColor.White, false);
             }
             else
             {
-                PlayWithWho(Logic.FigureColor.Black, true);
+                FigureClick(Logic.FigureColor.Black, true);
             }
         }
-        private void PlayWithWho(Logic.FigureColor color, bool switcher)
+        private string AttackedFigure { get; set; }
+        private void FigureClick(Logic.FigureColor color, bool switcher)
         {
             if (!IDrawer.isClicked) // Если на самом поле выделенных ячеек нет, выполняем ветку с выделением.
             {
                 if (Square.Content != null && Figure.Color == color) // Выделяем если есть фигура.
                 {
-
-                    Square.Background = Brushes.Red;
-                    IDrawer.isClicked = true; // Ставим два маркера, гласящих о том, что выделена клетка
-                    IsClicked = true;
-                    IDrawer.Row = X;
-                    IDrawer.Column = Y;
-                    MovementLogic.Xs.Add(Y);
-                    MovementLogic.Ys.Add(X);
-                    FigureName = Square.Content.ToString();
+                    Select();
                 }
             }
             else if (IDrawer.isClicked) // Если на поле выделена клетка, выполняем эту ветку
             {
                 if (Square.Content != null && IsClicked == true && Figure.Color == color) // Если на клетке есть фигура и она выделена
                 {
-                    Square.Background = OriginalBrush; // По клику красим обратно в тот же цвет
-                    IDrawer.isClicked = false; // Обнуляем параметры клика
-                    IsClicked = false;
-                    MovementLogic.Xs.Clear();
-                    MovementLogic.Ys.Clear();
+                    FalseClick();
                 }
                 else if (Square.Content == null && IsClicked == false) // Если фигуры нет, и нет выделения
                 {
-                    IDrawer.isClicked = false;
-
-                    MovementLogic.Xs.Add(Y);
-                    MovementLogic.Ys.Add(X);
-                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
-                    {
-                        Moves();
-                        IDrawer.WhiteOrBlack = switcher;
-                    }
-                    MovementLogic.Xs.Clear();
-                    MovementLogic.Ys.Clear();
+                    MoveClick(switcher);
                 }
                 else if (Square.Content != null && IsClicked == false)
                 {
-                    IDrawer.isClicked = false;
-                    string attackedFigure = Square.Content.ToString();
-                    MovementLogic.Xs.Add(Y);
-                    MovementLogic.Ys.Add(X);
-                    if(MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
-                    {
-                        Moves();
-                    }
-                    MovementLogic.Xs.Clear();
-                    MovementLogic.Ys.Clear();
-                    IDrawer.WhiteOrBlack = switcher;
+                    KillClick(switcher);
                     if (Figure.Color == Logic.FigureColor.White)
                     {
-                        if (attackedFigure != "K")
-                        {
-                            FirstPlayer.Count--;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Игра окончена, победил Second Player!");
-                            SecondPlayer.Wins++;
-                            IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
-                            File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
-
-                        }
+                        WhiteKingKill();
 
                     }
                     else if (Figure.Color == Logic.FigureColor.Black)
                     {
-                        if (attackedFigure != "K")
-                        {
-                            SecondPlayer.Count--;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Игра окончена, победил First Player!");
-                            FirstPlayer.Wins++;
-                            IDrawer.saveRate = FirstPlayer.Wins.ToString();
-                            File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
-                        } 
+                        BlackKingKill();
                     }
-                    Game.CheckWin();
                 }
+            }
+        }
+        private void Select()
+        {
+            Square.Background = Brushes.Red;
+            IDrawer.isClicked = true; // Ставим два маркера, гласящих о том, что выделена клетка
+            IsClicked = true;
+            IDrawer.Row = X;
+            IDrawer.Column = Y;
+            MovementLogic.Xs.Add(Y);
+            MovementLogic.Ys.Add(X);
+            FigureName = Square.Content.ToString();
+        }
+        private void FalseClick()
+        {
+            Square.Background = OriginalBrush; // По клику красим обратно в тот же цвет
+            IDrawer.isClicked = false; // Обнуляем параметры клика
+            IsClicked = false;
+            MovementLogic.Xs.Clear();
+            MovementLogic.Ys.Clear();
+        }
+        private void MoveClick(bool switcher)
+        {
+            IDrawer.isClicked = false;
+
+            MovementLogic.Xs.Add(Y);
+            MovementLogic.Ys.Add(X);
+            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
+            {
+                Moves();
+                IDrawer.WhiteOrBlack = switcher;
+            }
+            MovementLogic.Xs.Clear();
+            MovementLogic.Ys.Clear();
+        }
+        private void KillClick(bool switcher)
+        {
+            IDrawer.isClicked = false;
+            AttackedFigure = Square.Content.ToString();
+            MovementLogic.Xs.Add(Y);
+            MovementLogic.Ys.Add(X);
+            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
+            {
+                Moves();
+            }
+            MovementLogic.Xs.Clear();
+            MovementLogic.Ys.Clear();
+            IDrawer.WhiteOrBlack = switcher;
+        }
+        private void WhiteKingKill()
+        {
+            if (AttackedFigure != "K")
+            {
+                FirstPlayer.Count--;
+            }
+            else
+            {
+                MessageBox.Show("Игра окончена, победил Second Player!");
+                SecondPlayer.Wins++;
+                IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
+                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+
+            }
+        }
+        private void BlackKingKill()
+        {
+            if (AttackedFigure != "K")
+            {
+                SecondPlayer.Count--;
+            }
+            else
+            {
+                MessageBox.Show("Игра окончена, победил First Player!");
+                FirstPlayer.Wins++;
+                IDrawer.saveRate = FirstPlayer.Wins.ToString();
+                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
             }
         }
     }

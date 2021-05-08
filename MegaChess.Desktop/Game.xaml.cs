@@ -55,28 +55,5 @@ namespace MegaChess.Desktop
             MainWindow main = new MainWindow();
             main.Show();
         }
-
-        public static void CheckWin()
-        {
-            if (FirstPlayer.Count == 0 || SecondPlayer.Count == 0)
-            {
-                if (FirstPlayer.Count > SecondPlayer.Count)
-                {
-                    string winner = FirstPlayer.Name;
-                    FirstPlayer.Wins++;
-                    IDrawer.saveRate = FirstPlayer.Wins.ToString();
-                    MessageBox.Show($"Игра окончена, победил {winner}");
-                }
-                else
-                {
-                    string winner = SecondPlayer.Name;
-                    SecondPlayer.Wins++;
-                    IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
-                    MessageBox.Show($"Игра окончена, победил {winner}");
-                }
-                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
-            }
-
-        }
     }
 }

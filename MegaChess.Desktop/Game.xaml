@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MegaChess.Desktop"
         mc:Ignorable="d"
-        Title="Game" Height="650" Width="670" BorderBrush="Black" Closing="Window_Closing">
-    <Grid>
-        <Border BorderBrush="Black"
+        Title="Game" Height="730" Width="730" BorderBrush="Black" Closing="Window_Closing">
+    <StackPanel>
+        <Label HorizontalAlignment="Center" Content="White" FontSize="24" FontFamily="Algerian"/>
+        <Grid Height="615">
+
+            <Border BorderBrush="Black"
             BorderThickness="1"
             Margin="5"
             Grid.Row="1" Grid.Column="0">
-            <Canvas x:Name="field" SizeChanged="field_SizeChanged"></Canvas>
-        </Border>
-    </Grid>
+                <Canvas x:Name="field" SizeChanged="field_SizeChanged"></Canvas>
+
+            </Border>
+        </Grid>
+        <Label HorizontalAlignment="Center" Content="Black" FontSize="24" FontFamily="Algerian"/>
+    </StackPanel>
+    
 </Window>

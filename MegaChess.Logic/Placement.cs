@@ -10,7 +10,7 @@ namespace MegaChess.Logic
 
     public class FigureParams
     {
-       public Names Name { get;}
+       public Names Name { get; set; }
        public FigureColor Color { get; }
 
         public FigureParams(Names name, FigureColor color)

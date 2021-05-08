@@ -36,8 +36,14 @@ namespace MegaChess.Desktop
                 }
             }
         }
+        public static SolidColorBrush FirstBoardColor { get; private set; }
+        public static SolidColorBrush SecondBoardColor { get; private set; }
         public IDrawer()
         {
+            string[] Colors = File.ReadAllLines("ColorProps.txt");
+
+            FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
+            SecondBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[1]);
             TakeBoard();
         }
     }

@@ -23,10 +23,10 @@ namespace MegaChess.Desktop
         private int X;
         private int Y;
         
-        private static string[] Colors = File.ReadAllLines("ColorProps.txt");
+        //private static string[] Colors = File.ReadAllLines("ColorProps.txt");
 
-        public static SolidColorBrush FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
-        public static SolidColorBrush SecondBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[1]);
+        //public static SolidColorBrush FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
+        //public static SolidColorBrush SecondBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[1]);
         public Brush OriginalBrush { get; set; }
         public Cell(int i, int j)
         {
@@ -37,7 +37,7 @@ namespace MegaChess.Desktop
             Square = new Label(); 
             Square.Width = 75;
             Square.Height = 75;
-            Square.Background = isFilled ? FirstBoardColor : SecondBoardColor;
+            Square.Background = isFilled ? IDrawer.FirstBoardColor : IDrawer.SecondBoardColor;
             if (Placement.field[i, j] != null)
             {
                 Square.Content = Placement.field[i, j].Name.ToString();
@@ -67,7 +67,7 @@ namespace MegaChess.Desktop
             Placement.field[IDrawer.Row, IDrawer.Column] = null;
 
             IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Background
-                = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? FirstBoardColor : SecondBoardColor;
+                = IDrawer.Board[IDrawer.Row, IDrawer.Column].isFilled ? IDrawer.FirstBoardColor : IDrawer.SecondBoardColor;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].IsClicked = false;
         }
         public void PlayOnWho(object sender, MouseButtonEventArgs e)
@@ -113,6 +113,7 @@ namespace MegaChess.Desktop
                     {
                         BlackKingKill();
                     }
+                    
                 }
             }
         }

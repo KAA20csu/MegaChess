@@ -14,15 +14,27 @@ using System.Windows.Shapes;
 
 namespace MegaChess.Desktop
 {
-
     public partial class Game : Window
     {
         public Game()
         {
             new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
-            string[] rate = File.ReadAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt");
-            FirstPlayer.Wins = int.Parse(rate[1]);
-            SecondPlayer.Wins = int.Parse(rate[3]);
+            DirectoryInfo rateInfo = new DirectoryInfo("Rating");
+            foreach(var rates in rateInfo.GetFiles())
+            {
+                if (rates.Name.Trim(rates.Extension.ToCharArray()) == $"{FirstPlayer.Name} and {SecondPlayer.Name}")
+                {
+                    string[] rate = File.ReadAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt");
+                    FirstPlayer.Wins = int.Parse(rate[1]);
+                    SecondPlayer.Wins = int.Parse(rate[3]);
+                }
+                else
+                {
+                    File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", new string[] { FirstPlayer.Name, 0.ToString(), SecondPlayer.Name, 0.ToString() });
+                    FirstPlayer.Wins = 0;
+                    SecondPlayer.Wins = 0;
+                }
+            }
             InitializeComponent();
         }
         
@@ -48,8 +60,6 @@ namespace MegaChess.Desktop
                 }
             }
         }
-
-        
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);

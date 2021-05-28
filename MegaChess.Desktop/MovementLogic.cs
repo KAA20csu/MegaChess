@@ -18,7 +18,7 @@ namespace MegaChess.Desktop
             DifY = Math.Abs(Ys[1] - Ys[0]);
         }
 
-        public static bool CheckMove(List<int> Xs, List<int> Ys, string figureName)
+        public static bool CheckMove(List<int> Xs, List<int> Ys, string figureName, MegaChess.Logic.FigureColor color)
         {
             CheckDifference(Xs, Ys);
 
@@ -29,7 +29,7 @@ namespace MegaChess.Desktop
                 ("Q") => MoveQueen(DifX, DifY),
                 ("C") => MoveCastle(DifX, DifY),
                 ("E") => MoveElephant(DifX, DifY),
-                ("P") => MovePawn(DifX, DifY),
+                ("P") => MovePawn(DifX, DifY, color),
                 _ => false,
             };
         }
@@ -75,32 +75,61 @@ namespace MegaChess.Desktop
             return false;
         }
         
-        public static bool MovePawn(int DifX, int DifY)
+        public static bool MovePawn(int DifX, int DifY, MegaChess.Logic.FigureColor color)
         {
-            
-            if (Ys[0] == 6 && Ys[0] < 7)
+            if(color == MegaChess.Logic.FigureColor.Black)
             {
-                if (DifX == 0 && DifY == 2)
+                if(Ys[1] < Ys[0])
                 {
-                    return true;
-                }
+                    if(Ys[0] == 6)
+                    {
+                        if (DifX == 0 && DifY == 2)
+                        {
+                            return true;
+                        }
 
-                else if (DifX == 0 && DifY == 1)
-                {
-                    return true;
+                        else if (DifX == 0 && DifY == 1)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (Ys[0] < 6)
+                    {
+                        if (DifX == 0 && DifY == 1)
+                        {
+                            return true;
+                        }
+                    }
                 }
-               
             }
-            else if (Ys[0] < 6)
+            else
             {
-                if (DifX == 0 && DifY == 1)
+                if (Ys[1] > Ys[0])
                 {
-                    return true;
+                    if (Ys[0] == 1)
+                    {
+                        if (DifX == 0 && DifY == 2)
+                        {
+                            return true;
+                        }
+
+                        else if (DifX == 0 && DifY == 1)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (Ys[0] > 1)
+                    {
+                        if (DifX == 0 && DifY == 1)
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
-
             return false;
 
         }
+        
     }
 }

@@ -138,7 +138,7 @@ namespace MegaChess.Desktop
 
             MovementLogic.Xs.Add(Y);
             MovementLogic.Ys.Add(X);
-            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
+            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
             {
                 Moves();
                 IDrawer.WhiteOrBlack = switcher;
@@ -152,7 +152,7 @@ namespace MegaChess.Desktop
             AttackedFigure = Square.Content.ToString();
             MovementLogic.Xs.Add(Y);
             MovementLogic.Ys.Add(X);
-            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName))
+            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
             {
                 Moves();
             }

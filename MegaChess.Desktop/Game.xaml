@@ -14,7 +14,7 @@
             BorderThickness="1"
             Margin="5"
             Grid.Row="1" Grid.Column="0">
-                <Canvas x:Name="field" SizeChanged="field_SizeChanged"></Canvas>
+                <Canvas x:Name="field" SizeChanged="Field_SizeChanged"></Canvas>
 
             </Border>
         </Grid>

@@ -17,7 +17,6 @@ namespace MegaChess.Desktop
 
     public partial class Game : Window
     {
-
         public Game()
         {
             new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
@@ -25,10 +24,12 @@ namespace MegaChess.Desktop
             InitializeComponent();
         }
         
-        private void field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
+        private void Field_SizeChanged(object sender, SizeChangedEventArgs e) // Создаём обработчик события для Canvas, чтобы отрисовать доску.
         {
-            SoundPlayer sp = new SoundPlayer();
-            sp.SoundLocation = "fon-sound.wav";
+            SoundPlayer sp = new SoundPlayer
+            {
+                SoundLocation = "fon-sound.wav"
+            };
             sp.Load();
             sp.PlayLooping();
 

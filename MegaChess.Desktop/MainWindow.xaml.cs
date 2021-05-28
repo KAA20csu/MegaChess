@@ -29,12 +29,12 @@ namespace MegaChess.Desktop
             InitializeComponent();
         }
 
-        private void btn_Exit(object sender, RoutedEventArgs e)
+        private void Btn_Exit(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
             
         }
-        private void btn_NewGame(object sender, RoutedEventArgs e)
+        private void Btn_NewGame(object sender, RoutedEventArgs e)
         {
 
             Placement.Initialisation();

@@ -20,24 +20,21 @@ namespace MegaChess.Desktop
         private FigureParams Figure { get; set; }
         public Label Square { get; private set; } // Контрол для самой клетки
 
-        private int X;
-        private int Y;
-        
-        //private static string[] Colors = File.ReadAllLines("ColorProps.txt");
-
-        //public static SolidColorBrush FirstBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[0]);
-        //public static SolidColorBrush SecondBoardColor = (SolidColorBrush)new BrushConverter().ConvertFromString(Colors[1]);
+        private readonly int X;
+        private readonly int Y;
         public Brush OriginalBrush { get; set; }
         public Cell(int i, int j)
         {
             X = i;
             Y = j;
             
-            isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0; 
-            Square = new Label(); 
-            Square.Width = 75;
-            Square.Height = 75;
-            Square.Background = isFilled ? IDrawer.FirstBoardColor : IDrawer.SecondBoardColor;
+            isFilled = j % 2 == 0 ? i % 2 == 0 : i % 2 != 0;
+            Square = new Label
+            {
+                Width = 75,
+                Height = 75,
+                Background = isFilled ? IDrawer.FirstBoardColor : IDrawer.SecondBoardColor
+            };
             if (Placement.field[i, j] != null)
             {
                 Square.Content = Placement.field[i, j].Name.ToString();
@@ -56,7 +53,6 @@ namespace MegaChess.Desktop
         public static string FigureName = "";
         public void Moves()
         {
-            
             Square.Content = IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content;
             IDrawer.Board[IDrawer.Row, IDrawer.Column].Square.Content = null;
 
@@ -174,8 +170,8 @@ namespace MegaChess.Desktop
             {
                 MessageBox.Show("Игра окончена, победил Second Player!");
                 SecondPlayer.Wins++;
-                IDrawer.saveRateSecond = SecondPlayer.Wins.ToString();
-                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+                IDrawer.SaveRateSecond = SecondPlayer.Wins.ToString();
+                File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);
 
             }
         }
@@ -189,8 +185,8 @@ namespace MegaChess.Desktop
             {
                 MessageBox.Show("Игра окончена, победил First Player!");
                 FirstPlayer.Wins++;
-                IDrawer.saveRate = FirstPlayer.Wins.ToString();
-                File.WriteAllText("Rate.txt", IDrawer.saveRate + "\n" + IDrawer.saveRateSecond);
+                IDrawer.SaveRate = FirstPlayer.Wins.ToString();
+                File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);
             }
         }
     }

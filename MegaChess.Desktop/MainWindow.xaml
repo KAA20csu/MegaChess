@@ -16,11 +16,11 @@
     </Window.Background>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Text="Welcome To The Chess Game!" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="44" Foreground="WhiteSmoke" TextWrapping="Wrap" FontWeight="ExtraBold" Margin="0,39,0,0"/>
-        <Button DockPanel.Dock="Top" Click="btn_NewGame" FontSize="44" Content="New Game" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" Foreground="#FFFCFCFC" BorderBrush="White"/>
+        <Button DockPanel.Dock="Top" Click="Btn_NewGame" FontSize="44" Content="New Game" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" Foreground="#FFFCFCFC" BorderBrush="White"/>
         <Button DockPanel.Dock="Top" Click="Continue_Click"  FontSize="44" Content="Continue" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="89" Width="393" Background="{x:Null}" Foreground="#FFFDFBFB" BorderBrush="#FFFDFAFA"/>
         <Button DockPanel.Dock="Top" FontSize="44" Content="Settings" Click="Settings_Click" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="89" Width="393" Background="{x:Null}" Foreground="#FFFDFBFB" BorderBrush="#FFFDFAFA"/>
         <Button DockPanel.Dock="Top" FontSize="44" Content="Rating" Click="Rating_Click" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="89" Width="393" Background="{x:Null}" Foreground="#FFFDFBFB" BorderBrush="#FFFDFAFA"/>
-        <Button DockPanel.Dock="Bottom" Click="btn_Exit" FontSize="44" Content="Exit" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" BorderBrush="#FFF7F5F5" Foreground="#FFFCFCFC"/>
+        <Button DockPanel.Dock="Bottom" Click="Btn_Exit" FontSize="44" Content="Exit" HorizontalAlignment="Left" Margin="197,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="88" Width="393" Background="{x:Null}" BorderBrush="#FFF7F5F5" Foreground="#FFFCFCFC"/>
 
     </DockPanel>
 </Window>

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-
 namespace MegaChess.Logic
 {
     public enum Names { K, Q, C, H, E, P }
     public enum FigureColor { White, Black }
 
-    public class FigureParams
+    public class FigureParams // Объект самой фигуры
     {
        public Names Name { get; set; }
        public FigureColor Color { get; }

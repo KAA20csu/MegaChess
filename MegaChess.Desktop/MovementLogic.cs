@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MegaChess.Logic;
 
 namespace MegaChess.Desktop
 {
@@ -21,24 +22,16 @@ namespace MegaChess.Desktop
         {
             CheckDifference(Xs, Ys);
 
-            switch (figureName)
+            return figureName switch
             {
-                case ("H"):
-                    return MoveHorse(DifX, DifY);
-                case ("K"):
-                    return MoveKing(DifX, DifY);
-                case ("Q"):
-                     return MoveQueen(DifX, DifY);
-                case ("C"):
-                    return MoveCastle(DifX, DifY);
-                case ("E"):
-                    return MoveElephant(DifX, DifY);
-                case ("P"):
-                    return MovePawn(DifX, DifY);
-                default:
-                    return false;
-            }
-
+                ("H") => MoveHorse(DifX, DifY),
+                ("K") => MoveKing(DifX, DifY),
+                ("Q") => MoveQueen(DifX, DifY),
+                ("C") => MoveCastle(DifX, DifY),
+                ("E") => MoveElephant(DifX, DifY),
+                ("P") => MovePawn(DifX, DifY),
+                _ => false,
+            };
         }
         public static bool MoveHorse(int DifX, int DifY)
         {
@@ -81,8 +74,10 @@ namespace MegaChess.Desktop
             }
             return false;
         }
+        
         public static bool MovePawn(int DifX, int DifY)
         {
+            
             if (Ys[0] == 6 && Ys[0] < 7)
             {
                 if (DifX == 0 && DifY == 2)
@@ -100,7 +95,6 @@ namespace MegaChess.Desktop
             {
                 if (DifX == 0 && DifY == 1)
                 {
-
                     return true;
                 }
             }

@@ -30,12 +30,12 @@ namespace MegaChess.Desktop
             secondColor.ItemsSource = Enum.GetValues(typeof(ColorsSecond));
         }
 
-        private void firstColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FirstColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FirstColor = firstColor.SelectedItem.ToString();
         }
 
-        private void secondColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SecondColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SecondColor = secondColor.SelectedItem.ToString();
         }

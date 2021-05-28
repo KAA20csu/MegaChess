@@ -9,12 +9,10 @@ namespace MegaChess.Logic
     {
         public static string Name { get; set; }
         public FigureColor Figure { get; }
-        public static int Count { get; set; }
         public static int Wins { get; set; } 
-        public FirstPlayer(FigureColor figure, int count, int wins)
+        public FirstPlayer(FigureColor figure, int wins)
         {
             Figure = figure;
-            Count = count;
             Wins = wins;
         }
     }
@@ -22,12 +20,10 @@ namespace MegaChess.Logic
     {
         public static string Name { get; set; }
         public FigureColor Figure { get; }
-        public static int Count { get; set; }
         public static int Wins { get; set; } 
-        public SecondPlayer(FigureColor figure, int count, int wins)
+        public SecondPlayer(FigureColor figure, int wins)
         {
             Figure = figure;
-            Count = count;
             Wins = wins;
         }
     }

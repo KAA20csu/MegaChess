@@ -20,7 +20,9 @@ namespace MegaChess.Desktop
         public Game()
         {
             new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
-            
+            string[] rate = File.ReadAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt");
+            FirstPlayer.Wins = int.Parse(rate[1]);
+            SecondPlayer.Wins = int.Parse(rate[3]);
             InitializeComponent();
         }
         

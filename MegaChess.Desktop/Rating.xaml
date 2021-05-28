@@ -27,15 +27,7 @@
             <GradientStop Color="#FFE27575" Offset="1"/>
         </LinearGradientBrush>
     </Window.BorderBrush>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Label Name="first" Content="" HorizontalAlignment="Left" Margin="71,0,0,0" Grid.Row="0" VerticalAlignment="Center" Height="57" Width="371" FontFamily="Algerian" FontSize="36" Foreground="#FFFAF5F5"/>
-        <Label Name="second" Content="" HorizontalAlignment="Left" Margin="71,91,0,0" Grid.Row="1" VerticalAlignment="Top" Height="47" Width="385" FontFamily="Algerian" FontSize="36" Foreground="#FFFAF5F5"/>
-        <Label Name="FirstWins" Grid.Row="0" Margin="442,80,39,63" Foreground="#FFF9F4F4" FontSize="36" FontFamily="Algerian"></Label>
-        <Label Name="SecondWins" Grid.Row="1" Margin="477,91,39,63" FontFamily="Algerian" FontSize="36" Foreground="#FFFDFCFC"></Label>
-
-    </Grid>
+    <StackPanel x:Name="RateBoard">
+        
+    </StackPanel>
 </Window>

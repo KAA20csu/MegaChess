@@ -22,12 +22,18 @@ namespace MegaChess.Desktop
         public Rating()
         {
             InitializeComponent();
-            string[] names = File.ReadAllLines("names.txt");
-            first.Content = names[0] + " " + "wins:";
-            second.Content = names[1] + " " + "wins:";
-            string[] WinRate = File.ReadAllLines("Rate.txt");
-            FirstWins.Content = WinRate[0];
-            SecondWins.Content = WinRate[1];
+
+            DirectoryInfo infoRate = new DirectoryInfo("Rating");
+            foreach (var c in infoRate.GetFiles())
+            {
+                string[] rate = File.ReadAllLines(c.FullName);
+                Label lbRate = new Label(); 
+                lbRate.Content = $"{rate[0]}: " + rate[1] + "\n" + $"{rate[2]}: " + rate[3];
+                lbRate.FontSize = 30;
+                lbRate.Foreground = Brushes.White;
+                lbRate.HorizontalAlignment = HorizontalAlignment.Center;
+                RateBoard.Children.Add(lbRate);
+            }
         }
     }
 }

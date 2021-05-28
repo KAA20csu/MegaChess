@@ -39,8 +39,8 @@ namespace MegaChess.Desktop
             {
                 Square.Content = Placement.field[i, j].Name.ToString();
                 Figure = Placement.field[i, j];
-                if (Figure.Color == Logic.FigureColor.White) new FirstPlayer(Logic.FigureColor.White, 16, 0);
-                else if (Figure.Color == Logic.FigureColor.Black) new SecondPlayer(Logic.FigureColor.Black, 16, 0);
+                if (Figure.Color == Logic.FigureColor.White) new FirstPlayer(Logic.FigureColor.White, 0);
+                else if (Figure.Color == Logic.FigureColor.Black) new SecondPlayer(Logic.FigureColor.Black, 0);
             }
 
             Square.FontSize = 30;
@@ -160,33 +160,26 @@ namespace MegaChess.Desktop
             MovementLogic.Ys.Clear();
             IDrawer.WhiteOrBlack = switcher;
         }
+        string[] RateArray = new string[] { };
         private void WhiteKingKill()
         {
-            if (AttackedFigure != "K")
-            {
-                FirstPlayer.Count--;
-            }
-            else
+            if (AttackedFigure == "K")
             {
                 MessageBox.Show(@"Игра окончена, победил " + SecondPlayer.Name + "!");
                 SecondPlayer.Wins++;
-                IDrawer.SaveRateSecond = SecondPlayer.Wins.ToString();
-                File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);
-
+                RateArray = new string[] { FirstPlayer.Name, FirstPlayer.Wins.ToString(), SecondPlayer.Name, SecondPlayer.Wins.ToString() };
+                File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", RateArray);
             }
         }
         private void BlackKingKill()
         {
-            if (AttackedFigure != "K")
-            {
-                SecondPlayer.Count--;
-            }
-            else
+            if (AttackedFigure == "K")
             {
                 MessageBox.Show("Игра окончена, победил " + FirstPlayer.Name + "!");
                 FirstPlayer.Wins++;
-                IDrawer.SaveRate = FirstPlayer.Wins.ToString();
-                File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);
+                RateArray = new string[] { FirstPlayer.Name, FirstPlayer.Wins.ToString(), SecondPlayer.Name, SecondPlayer.Wins.ToString() };
+                File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", RateArray);
+
             }
         }
     }

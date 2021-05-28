@@ -40,9 +40,9 @@ namespace MegaChess.Desktop
             Placement.Initialisation();
             Names name = new Names();
             name.Show();
-            string[] rate = File.ReadAllLines("Rate.txt");
-            FirstPlayer.Wins = int.Parse(rate[0]);
-            SecondPlayer.Wins = int.Parse(rate[1]);
+            //string[] rate = File.ReadAllLines("Rate.txt");
+            //FirstPlayer.Wins = int.Parse(rate[0]);
+            //SecondPlayer.Wins = int.Parse(rate[1]);
             this.Close();
             
         }

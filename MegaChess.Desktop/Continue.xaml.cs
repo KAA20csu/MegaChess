@@ -44,7 +44,9 @@ namespace MegaChess.Desktop
         {
             Label lab = sender as Label;
             var save = File.ReadAllText($"Saves/{lab.Content}.txt");
-
+            string[] nicknames = lab.Content.ToString().Split("and");
+            FirstPlayer.Name = nicknames[0];
+            SecondPlayer.Name = nicknames[1];
             var jsonSaver = JsonConvert.DeserializeObject<FigureParams[,]>(save);
             Placement.field = jsonSaver;
 

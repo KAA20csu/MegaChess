@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,7 @@ namespace MegaChess.Desktop
         {
             FirstPlayer.Name = FirstName.Text;
             SecondPlayer.Name = SecondName.Text;
+            
             Game game = new Game();
             game.Show();
             this.Close();

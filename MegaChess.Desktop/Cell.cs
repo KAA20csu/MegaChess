@@ -168,7 +168,7 @@ namespace MegaChess.Desktop
             }
             else
             {
-                MessageBox.Show("Игра окончена, победил Second Player!");
+                MessageBox.Show(@"Игра окончена, победил " + SecondPlayer.Name + "!");
                 SecondPlayer.Wins++;
                 IDrawer.SaveRateSecond = SecondPlayer.Wins.ToString();
                 File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);
@@ -183,7 +183,7 @@ namespace MegaChess.Desktop
             }
             else
             {
-                MessageBox.Show("Игра окончена, победил First Player!");
+                MessageBox.Show("Игра окончена, победил " + FirstPlayer.Name + "!");
                 FirstPlayer.Wins++;
                 IDrawer.SaveRate = FirstPlayer.Wins.ToString();
                 File.WriteAllText("Rate.txt", IDrawer.SaveRate + "\n" + IDrawer.SaveRateSecond);

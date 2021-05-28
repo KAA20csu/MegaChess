@@ -42,7 +42,7 @@ namespace MegaChess.Desktop
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            File.WriteAllText("ColorProps.txt", FirstColor + "\n" + SecondColor);
+            File.WriteAllText("Properties/ColorProps.txt", FirstColor + "\n" + SecondColor);
             this.Close();
         }
     }

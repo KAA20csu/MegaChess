@@ -51,7 +51,7 @@ namespace MegaChess.Desktop
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
-            File.WriteAllText("save1.txt", save);
+            File.WriteAllText($"Saves/{FirstPlayer.Name} and {SecondPlayer.Name}.txt", save);
             IDrawer.WhiteOrBlack = true;
             MainWindow main = new MainWindow();
             main.Show();

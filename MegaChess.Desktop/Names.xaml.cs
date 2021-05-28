@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,19 +14,22 @@ using MegaChess.Logic;
 namespace MegaChess.Desktop
 {
     /// <summary>
-    /// Логика взаимодействия для Rating.xaml
+    /// Логика взаимодействия для Names.xaml
     /// </summary>
-    public partial class Rating : Window
+    public partial class Names : Window
     {
-        public Rating()
+        public Names()
         {
             InitializeComponent();
-            string[] names = File.ReadAllLines("names.txt");
-            first.Content = names[0] + " " + "wins:";
-            second.Content = names[1] + " " + "wins:";
-            string[] WinRate = File.ReadAllLines("Rate.txt");
-            FirstWins.Content = WinRate[0];
-            SecondWins.Content = WinRate[1];
+        }
+
+        private void NameClick(object sender, RoutedEventArgs e)
+        {
+            FirstPlayer.Name = FirstName.Text;
+            SecondPlayer.Name = SecondName.Text;
+            Game game = new Game();
+            game.Show();
+            this.Close();
         }
     }
 }

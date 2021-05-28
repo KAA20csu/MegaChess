@@ -38,9 +38,8 @@ namespace MegaChess.Desktop
         {
 
             Placement.Initialisation();
-            
-            Game game = new Game();
-            game.Show();
+            Names name = new Names();
+            name.Show();
             string[] rate = File.ReadAllLines("Rate.txt");
             FirstPlayer.Wins = int.Parse(rate[0]);
             SecondPlayer.Wins = int.Parse(rate[1]);
@@ -56,13 +55,9 @@ namespace MegaChess.Desktop
 
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
-            var save = File.ReadAllText("save1.txt");
-            var jsonSaver = JsonConvert.DeserializeObject<FigureParams[,]>(save);
-            Placement.field = jsonSaver;
-            
-            Game game = new Game();
-            game.Show();
-            this.Close();
+            Continue @continue = new Continue();
+            @continue.Show();
+            Close();
         }
 
         private void Rating_Click(object sender, RoutedEventArgs e)

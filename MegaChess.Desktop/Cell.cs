@@ -143,6 +143,7 @@ namespace MegaChess.Desktop
                 Moves();
                 IDrawer.WhiteOrBlack = switcher;
             }
+            else { MessageBox.Show("Некорректный ход, попробуйте ещё раз"); }
             MovementLogic.Xs.Clear();
             MovementLogic.Ys.Clear();
         }
@@ -152,24 +153,40 @@ namespace MegaChess.Desktop
             AttackedFigure = Square.Content.ToString();
             MovementLogic.Xs.Add(Y);
             MovementLogic.Ys.Add(X);
-            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
+            if(Figure.Color == Logic.FigureColor.White)
             {
-                Moves();
+                if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
+                {
+                    Moves();
+                }
             }
+            else { MessageBox.Show("Некорректный ход, попробуйте ещё раз"); }
+            if(Figure.Color == Logic.FigureColor.White)
+            {
+                if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
+                {
+                    Moves();
+                }
+            }
+            else { MessageBox.Show("Некорректный ход, попробуйте ещё раз"); }
             MovementLogic.Xs.Clear();
             MovementLogic.Ys.Clear();
             IDrawer.WhiteOrBlack = switcher;
         }
-        string[] RateArray = new string[] { };
+        string[] RateArray { get; set; } = new string[] { };
+        public static bool isFinished { get; set; }
         private void WhiteKingKill()
         {
             if (AttackedFigure == "K")
             {
                 MessageBox.Show(@"Игра окончена, победил " + SecondPlayer.Name + "!");
                 SecondPlayer.Wins++;
+                isFinished = true;
+                isFinished = true;
                 RateArray = new string[] { FirstPlayer.Name, FirstPlayer.Wins.ToString(), SecondPlayer.Name, SecondPlayer.Wins.ToString() };
                 File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", RateArray);
             }
+            
         }
         private void BlackKingKill()
         {

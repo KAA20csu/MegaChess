@@ -37,9 +37,7 @@ namespace MegaChess.Desktop
 
                 listOfSaves.Children.Add(btnSave);
             }
-            
         }
-
         private void BtnSave_Click(object sender, MouseButtonEventArgs e)
         {
             Label lab = sender as Label;
@@ -49,10 +47,18 @@ namespace MegaChess.Desktop
             SecondPlayer.Name = nicknames[1];
             var jsonSaver = JsonConvert.DeserializeObject<FigureParams[,]>(save);
             Placement.field = jsonSaver;
+            if (IDrawer.WhiteOrBlack == true) IDrawer.WhiteOrBlack = false;
+            else IDrawer.WhiteOrBlack = true;
 
             Game game = new Game();
             game.Show();
             Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.Show();
         }
     }
 }

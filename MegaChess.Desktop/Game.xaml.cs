@@ -22,7 +22,7 @@ namespace MegaChess.Desktop
             DirectoryInfo rateInfo = new DirectoryInfo("Rating");
             foreach(var rates in rateInfo.GetFiles())
             {
-                if (rates.Name.Trim(rates.Extension.ToCharArray()) == $"{FirstPlayer.Name} and {SecondPlayer.Name}")
+                if (rates.Name.Trim(rates.Extension.ToCharArray()) == $"{FirstPlayer.Name} & {SecondPlayer.Name}")
                 {
                     string[] rate = File.ReadAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt");
                     FirstPlayer.Wins = int.Parse(rate[1]);
@@ -62,11 +62,20 @@ namespace MegaChess.Desktop
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
-            File.WriteAllText($"Saves/{FirstPlayer.Name} and {SecondPlayer.Name}.txt", save);
-            IDrawer.WhiteOrBlack = true;
-            MainWindow main = new MainWindow();
-            main.Show();
+            if(!Cell.isFinished)
+            {
+                var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
+                File.WriteAllText($"Saves/{FirstPlayer.Name} and {SecondPlayer.Name}.txt", save);
+                IDrawer.WhiteOrBlack = true;
+                MainWindow main = new MainWindow();
+                main.Show();
+            }
+            else
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+            }
+            
         }
     }
 }

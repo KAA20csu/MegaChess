@@ -45,5 +45,12 @@ namespace MegaChess.Desktop
             File.WriteAllText("Properties/ColorProps.txt", FirstColor + "\n" + SecondColor);
             this.Close();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            MainWindow window = new MainWindow();
+            window.Show();
+        }
     }
 }

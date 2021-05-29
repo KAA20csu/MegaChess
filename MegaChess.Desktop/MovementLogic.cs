@@ -21,7 +21,6 @@ namespace MegaChess.Desktop
         public static bool CheckMove(List<int> Xs, List<int> Ys, string figureName, MegaChess.Logic.FigureColor color)
         {
             CheckDifference(Xs, Ys);
-
             return figureName switch
             {
                 ("H") => MoveHorse(DifX, DifY),
@@ -54,7 +53,7 @@ namespace MegaChess.Desktop
         {
             if (DifX == 0 && DifY > 0 || DifX > 0 && DifY == 0 || DifX != 0 && DifY != 0 && DifX == DifY)
             {
-                return true;
+                return CheckCell();
             }
             return false;
         }
@@ -62,7 +61,7 @@ namespace MegaChess.Desktop
         {
             if (DifX == 0 && DifY > 0 || DifX > 0 && DifY == 0)
             {
-                return true;
+                return CheckCell();
             }
             return false;
         }
@@ -70,7 +69,7 @@ namespace MegaChess.Desktop
         {
             if (DifY == DifX)
             {
-                return true;
+                return CheckCell();
             }
             return false;
         }
@@ -129,6 +128,26 @@ namespace MegaChess.Desktop
             }
             return false;
 
+        }
+        private static bool CheckCell()
+        {
+            int i = Ys[0] + (Ys[0] > Ys[1] ? -1 : 1);
+            int j = Xs[0] + (Xs[0] > Xs[1] ? -1 : 1);
+
+            do
+            {
+                if (Placement.field[i, j] != null)
+                {
+                    return false;
+                }
+
+                i += Ys[0] > Ys[1] ? -1 : 1;
+                j += Xs[0] > Xs[1] ? -1 : 1;                
+
+            } while (Placement.field[i, j] == null);
+
+
+                return true;
         }
         
     }

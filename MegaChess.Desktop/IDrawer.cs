@@ -20,9 +20,6 @@ namespace MegaChess.Desktop
         
         public static int Row;
         public static int Column;
-
-        //public  static string SaveRate { get; set; } = "0";
-        //public static string SaveRateSecond { get; set; } = "0";
         private static void TakeBoard() // Метод получения самой доски (заполнение)
         {
 

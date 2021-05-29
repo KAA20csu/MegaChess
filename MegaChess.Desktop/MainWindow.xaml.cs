@@ -40,9 +40,6 @@ namespace MegaChess.Desktop
             Placement.Initialisation();
             Names name = new Names();
             name.Show();
-            //string[] rate = File.ReadAllLines("Rate.txt");
-            //FirstPlayer.Wins = int.Parse(rate[0]);
-            //SecondPlayer.Wins = int.Parse(rate[1]);
             this.Close();
             
         }
@@ -51,6 +48,7 @@ namespace MegaChess.Desktop
         {
             Settings settings = new Settings();
             settings.Show();
+            Close();
         }
 
         private void Continue_Click(object sender, RoutedEventArgs e)
@@ -64,6 +62,7 @@ namespace MegaChess.Desktop
         {
             Rating rating = new Rating();
             rating.Show();
+            Close();
         }
     }
     

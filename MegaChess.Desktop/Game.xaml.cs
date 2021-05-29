@@ -19,6 +19,7 @@ namespace MegaChess.Desktop
         public Game()
         {
             new IDrawer(); // Добавляем конструктор в Code Behind, чтобы дальше работать с доской.
+            Cell.isFinished = true;
             DirectoryInfo rateInfo = new DirectoryInfo("Rating");
             foreach(var rates in rateInfo.GetFiles())
             {
@@ -62,19 +63,11 @@ namespace MegaChess.Desktop
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(!Cell.isFinished)
-            {
                 var save = JsonConvert.SerializeObject(Placement.field, Formatting.Indented);
                 File.WriteAllText($"Saves/{FirstPlayer.Name} and {SecondPlayer.Name}.txt", save);
                 IDrawer.WhiteOrBlack = true;
                 MainWindow main = new MainWindow();
                 main.Show();
-            }
-            else
-            {
-                MainWindow main = new MainWindow();
-                main.Show();
-            }
             
         }
     }

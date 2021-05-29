@@ -153,25 +153,27 @@ namespace MegaChess.Desktop
             AttackedFigure = Square.Content.ToString();
             MovementLogic.Xs.Add(Y);
             MovementLogic.Ys.Add(X);
-            if(Figure.Color == Logic.FigureColor.White)
+            if (Figure.Color != IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color)
             {
-                if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
-                {
-                    Moves();
-                }
+                CheckKill(switcher);
             }
-            else { MessageBox.Show("Некорректный ход, попробуйте ещё раз"); }
-            if(Figure.Color == Logic.FigureColor.White)
-            {
-                if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
-                {
-                    Moves();
-                }
-            }
-            else { MessageBox.Show("Некорректный ход, попробуйте ещё раз"); }
+            else MessageBox.Show("Своих не бить!");
+            
             MovementLogic.Xs.Clear();
             MovementLogic.Ys.Clear();
-            IDrawer.WhiteOrBlack = switcher;
+            
+        }
+        private void CheckKill(bool switcher)
+        {
+            if (MovementLogic.CheckMove(MovementLogic.Xs, MovementLogic.Ys, FigureName, IDrawer.Board[IDrawer.Row, IDrawer.Column].Figure.Color))
+            {
+                Moves();
+                IDrawer.WhiteOrBlack = switcher;
+            }
+            else
+            {
+                MessageBox.Show("Некорректный ход, попробуйте ещё раз");
+            }
         }
         string[] RateArray { get; set; } = new string[] { };
         public static bool isFinished { get; set; }
@@ -181,7 +183,6 @@ namespace MegaChess.Desktop
             {
                 MessageBox.Show(@"Игра окончена, победил " + SecondPlayer.Name + "!");
                 SecondPlayer.Wins++;
-                isFinished = true;
                 isFinished = true;
                 RateArray = new string[] { FirstPlayer.Name, FirstPlayer.Wins.ToString(), SecondPlayer.Name, SecondPlayer.Wins.ToString() };
                 File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", RateArray);
@@ -194,6 +195,7 @@ namespace MegaChess.Desktop
             {
                 MessageBox.Show("Игра окончена, победил " + FirstPlayer.Name + "!");
                 FirstPlayer.Wins++;
+                isFinished = true;
                 RateArray = new string[] { FirstPlayer.Name, FirstPlayer.Wins.ToString(), SecondPlayer.Name, SecondPlayer.Wins.ToString() };
                 File.WriteAllLines($"Rating/{FirstPlayer.Name} & {SecondPlayer.Name} rating.txt", RateArray);
 

@@ -54,11 +54,5 @@ namespace MegaChess.Desktop
             game.Show();
             Close();
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            MainWindow window = new MainWindow();
-            window.Show();
-        }
     }
 }

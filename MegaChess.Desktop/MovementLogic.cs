@@ -53,7 +53,7 @@ namespace MegaChess.Desktop
         {
             if (DifX == 0 && DifY > 0 || DifX > 0 && DifY == 0 || DifX != 0 && DifY != 0 && DifX == DifY)
             {
-                return CheckCell();
+                return CheckCell(DifY, DifX);
             }
             return false;
         }
@@ -61,7 +61,7 @@ namespace MegaChess.Desktop
         {
             if (DifX == 0 && DifY > 0 || DifX > 0 && DifY == 0)
             {
-                return CheckCell();
+                return CheckCell(DifY, DifX);
             }
             return false;
         }
@@ -69,7 +69,7 @@ namespace MegaChess.Desktop
         {
             if (DifY == DifX)
             {
-                return CheckCell();
+                return CheckCell(DifY, DifX);
             }
             return false;
         }
@@ -129,26 +129,34 @@ namespace MegaChess.Desktop
             return false;
 
         }
-        private static bool CheckCell()
+        private static bool CheckCell(int DifY, int DifX)
         {
-            int i = Ys[0] + (Ys[0] > Ys[1] ? -1 : 1);
-            int j = Xs[0] + (Xs[0] > Xs[1] ? -1 : 1);
-
-            do
+            if ((DifX == 1 && DifY == 0) || (DifX == 0 && DifY == 1) || (DifX == 1 && DifY == 1))
             {
+                return true;
+            }
+
+            int i = Ys[0] + (DifY > 0 ? (Ys[0] > Ys[1] ? -1 : 1) : 0);
+            int j = Xs[0] + (DifX > 0 ? (Xs[0] > Xs[1] ? -1 : 1) : 0);
+
+
+            for (; DifY > 0 ? (Ys[0] > Ys[1] ? i > Ys[1] : i < Ys[1]) : DifX > 0 ? (Xs[0] > Xs[1] ? j > Xs[1] : j < Xs[1]) : 1 < 2;)
+            {
+
+
                 if (Placement.field[i, j] != null)
                 {
                     return false;
                 }
 
-                i += Ys[0] > Ys[1] ? -1 : 1;
-                j += Xs[0] > Xs[1] ? -1 : 1;                
 
-            } while (Placement.field[i, j] == null);
+                i += (DifY > 0 ? (Ys[0] > Ys[1] ? -1 : 1) : 0);
+                j += (DifX > 0 ? (Xs[0] > Xs[1] ? -1 : 1) : 0);
 
+            }
 
-                return true;
+            return true;
         }
-        
+
     }
 }
